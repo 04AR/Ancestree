@@ -2,7 +2,7 @@
 
 ---
 
-<html lang="en">
+<!-- <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -13,4 +13,121 @@
 	<body>
 		<h1>Astro</h1>
 	</body>
+</html> -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Tree</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+      }
+      #toolbar {
+        padding: 10px;
+        background: #f8f8f8;
+        border-bottom: 1px solid #ccc;
+      }
+      svg {
+        width: 100%;
+        height: calc(100vh - 50px);
+      }
+
+      .node image {
+        clip-path: circle(20px at center);
+      }
+      .node circle {
+        cursor: pointer;
+      }
+      .node text {
+        pointer-events: none;
+        font-size: 12px;
+      }
+
+      .link {
+        stroke: #999;
+        stroke-opacity: 0.6;
+      }
+      .link.child {
+        marker-end: url(#arrow);
+      }
+      .link.spouse {
+        marker-end: none;
+      }
+
+      .relation-label {
+        font-size: 10px;
+        fill: #333;
+        pointer-events: none;
+      }
+
+      #formPopup {
+        /* background: white;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 220px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        z-index: 1000; */
+      }
+
+      #formPopup::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .img-preview {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AncesTree 🌲</h1>
+    <div id="toolbar">
+      <button onclick="addMember()">Add Root Member</button>
+    </div>
+    <svg></svg>
+
+    <dialog open id="formPopup">
+      <img id="imgPreview" class="img-preview" src="" /><br />
+      <label>Name:</label><br />
+      <input type="text" id="memberName" /><br />
+      <label>Gender:</label><br />
+      <input type="radio" name="gender" value="male" id="genderMale" /> Male
+      <input type="radio" name="gender" value="female" id="genderFemale" /> Female<br
+      /><br />
+
+      <label>Upload Image:</label>
+      <input type="file" id="imgUpload" /><br /><br />
+
+      <label>Link to:</label>
+      <select id="relationSelect"></select>
+      <select id="relationType">
+        <option value="child">Child</option>
+        <option value="spouse">Spouse</option>
+      </select>
+      <button onclick="linkToSelected()">Link</button><br /><br />
+
+      <button onclick="saveNode()">Save</button>
+      <button onclick="addChild()">Add Child</button>
+      <button onclick="deleteNode()">Delete</button>
+      <button onclick="closeForm()">Cancel</button>
+    </dialog>
+
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
 </html>
